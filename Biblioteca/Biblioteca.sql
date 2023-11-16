@@ -1,0 +1,37 @@
+CREATE DATABASE Biblioteca;
+
+USE Biblioteca;
+
+CREATE TABLE Editoras (
+	id INTEGER NOT NULL PRIMARY KEY IDENTITY,
+	nome VARCHAR(60) NOT NULL
+);
+
+CREATE TABLE Autores (
+	id INTEGER NOT NULL PRIMARY KEY IDENTITY,
+	nome VARCHAR(50) NOT NULL,
+	nacionalidade VARCHAR(40)
+);
+
+CREATE TABLE Categorias (
+	id INTEGER PRIMARY KEY NOT NULL IDENTITY,
+	nome VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Livros (
+	isbn VARCHAR(22) PRIMARY KEY NOT NULL,
+	titulo VARCHAR(50) NOT NULL,
+	ano INTEGER NOT NULL,
+	fk_editora INTEGER NOT NULL,
+	fk_categoria INTEGER NOT NULL,
+	FOREIGN KEY (fk_editora) REFERENCES editoras(id),
+	FOREIGN KEY (fk_categoria) REFERENCES categorias(id)
+);
+
+CREATE TABLE Livro_Autor (
+	id INTEGER NOT NULL PRIMARY KEY IDENTITY,
+	fk_livro VARCHAR(22) NOT NULL,
+	fk_autor INTEGER NOT NULL,
+	FOREIGN KEY (fk_livro) REFERENCES livros(isbn),
+	FOREIGN KEY (fk_autor) REFERENCES autores(id)
+);
