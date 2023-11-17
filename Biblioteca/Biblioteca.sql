@@ -69,7 +69,7 @@ VALUES
 INSERT INTO Livros 
 VALUES 
 ('6555981083', 'Chamado de Cthulhu', 2021, 1, 1),
-('8576573008', 'Neuromancer', 2016, 2, 2),
+('8576573008', 'Neuromancer', 2016, 2, 3),
 ('8560280944', 'It: A coisa', 2014, 3, 1),  
 ('0767914767', 'O Diabo Veste Prata', 2004, 4, 4), 
 ('856709710X', 'O Pequeno Príncipe', 2021, 5, 5), 
@@ -78,7 +78,6 @@ VALUES
 ('8594318766', 'Vinte mil léguas submarinas', 2019, 7, 3),
 ('8594318146', 'A volta ao mundo em 80 dias', 2019, 7, 3),
 ('8563560859', 'Caninos brancos', 2014, 8, 5);
-
 
 INSERT INTO Livro_Autor 
 VALUES 
@@ -92,3 +91,63 @@ VALUES
 ('8594318766', 7),
 ('8594318146', 7),
 ('8563560859', 8);
+
+SELECT 
+Livros.isbn AS 'ISBN', 
+Livros.titulo AS 'Título do Livro', 
+Livros.ano AS 'Ano de Lançamento', 
+Editoras.nome AS 'Nome da Editora', 
+Categorias.nome AS 'Categoria do Livro'
+FROM Livros, Editoras, Categorias
+WHERE Livros.fk_editora = Editoras.id
+AND Livros.fk_categoria = Categorias.id
+ORDER BY Livros.titulo;
+
+SELECT 
+Livros.isbn AS 'ISBN', 
+Livros.titulo AS 'Título do Livro', 
+Livros.ano AS 'Ano de Lançamento', 
+Editoras.nome AS 'Nome da Editora',  
+Categorias.nome AS 'Categoria do Livro'
+FROM Livros, Editoras, Categorias, Livro_Autor, Autores
+WHERE Livros.fk_editora = Editoras.id
+AND Livros.fk_categoria = Categorias.id
+AND Livro_Autor.fk_livro = Livros.isbn
+AND Livro_Autor.fk_autor = Autores.id
+ORDER BY Autores.nome;
+
+SELECT 
+Livros.isbn AS 'ISBN', 
+Livros.titulo AS 'Título do Livro', 
+Livros.ano AS 'Ano de Lançamento', 
+Editoras.nome AS 'Nome da Editora', 
+Categorias.nome AS 'Categoria do Livro'
+FROM Livros, Editoras, Categorias
+WHERE Livros.fk_categoria = Categorias.id
+AND Categorias.nome = 'Literatura Juvenil'
+ORDER BY Livros.ano ASC;
+
+SELECT 
+Livros.isbn AS 'ISBN', 
+Livros.titulo AS 'Título do Livro', 
+Livros.ano AS 'Ano de Lançamento', 
+Editoras.nome AS 'Nome da Editora',  
+Categorias.nome AS 'Categoria do Livro'
+FROM Livros, Editoras, Categorias
+WHERE Livros.fk_editora = Editoras.id
+AND Livros.fk_categoria = Categorias.id
+AND Categorias.nome = 'Literatura Juvenil'
+ORDER BY Livros.ano;
+
+SELECT 
+Livros.isbn AS 'ISBN', 
+Livros.titulo AS 'Título do Livro', 
+Livros.ano AS 'Ano de Lançamento', 
+Editoras.nome AS 'Nome da Editora',  
+Categorias.nome AS 'Categoria do Livro'
+FROM Livros, Editoras, Categorias
+WHERE Livros.fk_editora = Editoras.id
+AND Livros.fk_categoria = Categorias.id
+AND (Categorias.nome = 'Humor' OR Categorias.nome = 'Ficção Cientifica')
+AND Livros.ano BETWEEN 2000 AND 2010
+ORDER BY Livros.titulo;
