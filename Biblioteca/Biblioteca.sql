@@ -93,22 +93,42 @@ VALUES
 ('8563560859', 8);
 
 SELECT 
-Livros.isbn AS 'ISBN', 
-Livros.titulo AS 'Título do Livro', 
-Livros.ano AS 'Ano de Lançamento', 
-Editoras.nome AS 'Nome da Editora', 
-Categorias.nome AS 'Categoria do Livro'
-FROM Livros, Editoras, Categorias
+    Livros.isbn AS 'ISBN', 
+    Livros.titulo AS 'Título do Livro', 
+    Livros.ano AS 'Ano de Lançamento', 
+    Editoras.nome AS 'Nome da Editora', 
+    Categorias.nome AS 'Categoria do Livro',
+    Autores.nome AS 'Nome do Autor',
+    Autores.nacionalidade AS 'Nacionalidade do Autor'
+FROM Livros, Editoras, Categorias, Autores
 WHERE Livros.fk_editora = Editoras.id
 AND Livros.fk_categoria = Categorias.id
+AND Livros.isbn IN (SELECT fk_livro FROM Livro_Autor WHERE Livro_Autor.fk_autor = Autores.id)
+ORDER BY Livros.titulo;
+
+SELECT
+    Livros.isbn AS 'ISBN', 
+	Livros.titulo AS 'Título do Livro', 
+	Livros.ano AS 'Ano de Lançamento',
+    Editoras.nome AS 'Nome da Editora', 
+	Categorias.nome AS 'Categoria do Livro',
+    Autores.nome AS 'Nome do Autor',
+    Autores.nacionalidade 'Nacionalidade do Autor'
+FROM Livros
+JOIN Editoras ON Livros.fk_editora = Editoras.id
+JOIN Categorias ON Livros.fk_categoria = Categorias.id
+JOIN Livro_Autor ON Livros.isbn = Livro_Autor.fk_livro
+JOIN Autores ON Livro_Autor.fk_autor = Autores.id
 ORDER BY Livros.titulo;
 
 SELECT 
-Livros.isbn AS 'ISBN', 
-Livros.titulo AS 'Título do Livro', 
-Livros.ano AS 'Ano de Lançamento', 
-Editoras.nome AS 'Nome da Editora',  
-Categorias.nome AS 'Categoria do Livro'
+	Livros.isbn AS 'ISBN', 
+    Livros.titulo AS 'Título do Livro', 
+    Livros.ano AS 'Ano de Lançamento', 
+    Editoras.nome AS 'Nome da Editora', 
+    Categorias.nome AS 'Categoria do Livro',
+    Autores.nome AS 'Nome do Autor',
+    Autores.nacionalidade AS 'Nacionalidade do Autor'
 FROM Livros, Editoras, Categorias, Livro_Autor, Autores
 WHERE Livros.fk_editora = Editoras.id
 AND Livros.fk_categoria = Categorias.id
@@ -116,38 +136,83 @@ AND Livro_Autor.fk_livro = Livros.isbn
 AND Livro_Autor.fk_autor = Autores.id
 ORDER BY Autores.nome;
 
-SELECT 
-Livros.isbn AS 'ISBN', 
-Livros.titulo AS 'Título do Livro', 
-Livros.ano AS 'Ano de Lançamento', 
-Editoras.nome AS 'Nome da Editora', 
-Categorias.nome AS 'Categoria do Livro'
-FROM Livros, Editoras, Categorias
-WHERE Livros.fk_categoria = Categorias.id
-AND Categorias.nome = 'Literatura Juvenil'
-ORDER BY Livros.ano ASC;
+SELECT
+    Livros.isbn AS 'ISBN', 
+	Livros.titulo AS 'Título do Livro', 
+	Livros.ano AS 'Ano de Lançamento',
+    Editoras.nome AS 'Nome da Editora', 
+	Categorias.nome AS 'Categoria do Livro',
+    Autores.nome AS 'Nome do Autor',
+    Autores.nacionalidade 'Nacionalidade do Autor'
+FROM Livros
+JOIN Editoras ON Livros.fk_editora = Editoras.id
+JOIN Categorias ON Livros.fk_categoria = Categorias.id
+JOIN Livro_Autor ON Livros.isbn = Livro_Autor.fk_livro
+JOIN Autores ON Livro_Autor.fk_autor = Autores.id
+ORDER BY Autores.nome;
 
 SELECT 
-Livros.isbn AS 'ISBN', 
-Livros.titulo AS 'Título do Livro', 
-Livros.ano AS 'Ano de Lançamento', 
-Editoras.nome AS 'Nome da Editora',  
-Categorias.nome AS 'Categoria do Livro'
-FROM Livros, Editoras, Categorias
+    Livros.isbn AS 'ISBN', 
+    Livros.titulo AS 'Título do Livro', 
+    Livros.ano AS 'Ano de Lançamento', 
+    Editoras.nome AS 'Nome da Editora', 
+    Categorias.nome AS 'Categoria do Livro',
+    Autores.nome AS 'Nome do Autor',
+    Autores.nacionalidade AS 'Nacionalidade do Autor'
+FROM Livros, Editoras, Categorias, Autores, Livro_Autor
 WHERE Livros.fk_editora = Editoras.id
 AND Livros.fk_categoria = Categorias.id
+AND Livros.isbn = Livro_Autor.fk_livro
+AND Livro_Autor.fk_autor = Autores.id
 AND Categorias.nome = 'Literatura Juvenil'
 ORDER BY Livros.ano;
 
+SELECT
+    Livros.isbn AS 'ISBN', 
+	Livros.titulo AS 'Título do Livro', 
+	Livros.ano AS 'Ano de Lançamento',
+    Editoras.nome AS 'Nome da Editora', 
+	Categorias.nome AS 'Categoria do Livro',
+    Autores.nome AS 'Nome do Autor',
+    Autores.nacionalidade 'Nacionalidade do Autor'
+FROM Livros
+JOIN Editoras ON Livros.fk_editora = Editoras.id
+JOIN Categorias ON Livros.fk_categoria = Categorias.id
+JOIN Livro_Autor ON Livros.isbn = Livro_Autor.fk_livro
+JOIN Autores ON Livro_Autor.fk_autor = Autores.id
+WHERE Categorias.nome = 'Literatura Juvenil'
+ORDER BY Livros.ano;
+
 SELECT 
-Livros.isbn AS 'ISBN', 
-Livros.titulo AS 'Título do Livro', 
-Livros.ano AS 'Ano de Lançamento', 
-Editoras.nome AS 'Nome da Editora',  
-Categorias.nome AS 'Categoria do Livro'
-FROM Livros, Editoras, Categorias
+    Livros.isbn AS 'ISBN', 
+    Livros.titulo AS 'Título do Livro', 
+    Livros.ano AS 'Ano de Lançamento', 
+    Editoras.nome AS 'Nome da Editora', 
+    Categorias.nome AS 'Categoria do Livro',
+    Autores.nome AS 'Nome do Autor',
+    Autores.nacionalidade AS 'Nacionalidade do Autor'
+FROM Livros, Editoras, Categorias, Autores, Livro_Autor
 WHERE Livros.fk_editora = Editoras.id
 AND Livros.fk_categoria = Categorias.id
+AND Livros.isbn = Livro_Autor.fk_livro
+AND Livro_Autor.fk_autor = Autores.id
 AND (Categorias.nome = 'Humor' OR Categorias.nome = 'Ficção Cientifica')
 AND Livros.ano BETWEEN 2000 AND 2010
-ORDER BY Livros.titulo;
+ORDER BY Livros.ano;
+
+SELECT
+    Livros.isbn AS 'ISBN', 
+	Livros.titulo AS 'Título do Livro', 
+	Livros.ano AS 'Ano de Lançamento',
+    Editoras.nome AS 'Nome da Editora', 
+	Categorias.nome AS 'Categoria do Livro',
+    Autores.nome AS 'Nome do Autor',
+    Autores.nacionalidade 'Nacionalidade do Autor'
+FROM Livros
+JOIN Editoras ON Livros.fk_editora = Editoras.id
+JOIN Categorias ON Livros.fk_categoria = Categorias.id
+JOIN Livro_Autor ON Livros.isbn = Livro_Autor.fk_livro
+JOIN Autores ON Livro_Autor.fk_autor = Autores.id
+WHERE (Categorias.nome = 'Humor' OR Categorias.nome = 'Ficção Cientifica') 
+AND Livros.ano BETWEEN 2000 AND 2010
+ORDER BY Livros.ano;
