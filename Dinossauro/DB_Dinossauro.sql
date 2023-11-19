@@ -70,3 +70,133 @@ INSERT INTO Dinossauro_Descobridor (id_dinossauro, id_descobridor) VALUES
 (4, 1),
 (5, 3),
 (6, 4);
+
+-- exercício 7
+SELECT
+    Dinossauro.id_dinossauro AS 'Id do Dinossauro',
+    Dinossauro.nome AS 'Nome do Dinossauro',
+    Dinossauro.toneladas AS 'Toneladas',
+    Dinossauro.ano_descoberta AS 'Descoberta',
+    Dinossauro.pais_descobrimento AS 'Descobrimento',
+    Grupo.nome AS 'Nome do Grupo',
+    Descobridor.nome AS 'Nome do Descobridor',
+    Era.nome AS 'Era'
+FROM Dinossauro, Grupo, Descobridor, Era
+WHERE Dinossauro.fk_grupo = Grupo.id_grupo
+AND Dinossauro.fk_descobridor = Descobridor.id_descobridor
+AND Dinossauro.fk_era = Era.id_era
+ORDER BY Dinossauro.nome;
+
+SELECT
+    Dinossauro.id_dinossauro AS 'Id do Dinossauro',
+	Dinossauro.nome AS 'Nome do Dinossauro',
+    Dinossauro.toneladas AS 'Toneladas',
+    Dinossauro.ano_descoberta AS 'Descoberta',
+    Dinossauro.pais_descobrimento AS 'Descobrimento',
+    Grupo.nome AS 'Nome do Grupo',
+    Descobridor.nome AS 'Nome do Descobridor',
+    Era.nome AS 'Era'
+FROM Dinossauro
+INNER JOIN Grupo ON Dinossauro.fk_grupo = Grupo.id_grupo
+INNER JOIN Descobridor ON Dinossauro.fk_descobridor = Descobridor.id_descobridor
+INNER JOIN Era ON Dinossauro.fk_era = Era.id_era
+ORDER BY Dinossauro.nome ASC;
+
+-- exercício 8
+SELECT
+    Dinossauro.id_dinossauro AS 'id do Dinossauro',
+    Dinossauro.nome AS 'Nome do Dinossauro',
+    Dinossauro.toneladas AS 'Toneladas',
+    Dinossauro.ano_descoberta AS 'Ano da Descoberta',
+    Dinossauro.pais_descobrimento AS 'pais do Descobrimento',
+    Grupo.nome AS 'Nome do Grupo',
+    Descobridor.nome AS 'Nome do Descobridor',
+    Era.nome AS 'Era'
+FROM Dinossauro, Grupo, Descobridor, Era
+WHERE Dinossauro.fk_grupo = Grupo.id_grupo
+AND Dinossauro.fk_descobridor = Descobridor.id_descobridor
+AND Dinossauro.fk_era = Era.id_era
+ORDER BY Descobridor.nome;
+
+SELECT
+    Dinossauro.id_dinossauro AS 'id do Dinossauro',
+    Dinossauro.nome AS 'Nome do Dinossauro',
+    Dinossauro.toneladas AS 'Toneladas',
+    Dinossauro.ano_descoberta AS 'Ano da Descoberta',
+    Dinossauro.pais_descobrimento AS 'pais do Descobrimento',
+    Grupo.nome AS 'Nome do Grupo',
+    Descobridor.nome AS 'Nome do Descobridor',
+    Era.nome AS 'Era'
+FROM Dinossauro
+INNER JOIN Grupo ON Dinossauro.fk_grupo = Grupo.id_grupo
+INNER JOIN Descobridor ON Dinossauro.fk_descobridor = Descobridor.id_descobridor
+INNER JOIN Era ON Dinossauro.fk_era = Era.id_era
+ORDER BY Descobridor.nome ASC, Dinossauro.nome ASC;
+
+-- exercício 9
+SELECT
+    Dinossauro.id_dinossauro AS 'id do Dinossauro',
+    Dinossauro.nome AS 'Nome do Dinossauro',
+    Dinossauro.toneladas AS 'Toneladas',
+    Dinossauro.ano_descoberta AS 'Ano da Descoberta',
+    Dinossauro.pais_descobrimento AS 'pais do Descobrimento',
+    Grupo.nome AS 'Nome do Grupo',
+    Descobridor.nome AS 'Nome do Descobridor',
+    Era.nome AS 'Era'
+FROM Dinossauro, Grupo, Descobridor, Era
+WHERE Dinossauro.fk_grupo = Grupo.id_grupo
+AND Dinossauro.fk_descobridor = Descobridor.id_descobridor
+AND Dinossauro.fk_era = Era.id_era
+AND Grupo.nome = 'Anquilossauros'
+ORDER BY Dinossauro.ano_descoberta;
+
+SELECT
+    Dinossauro.id_dinossauro AS 'id do Dinossauro',
+    Dinossauro.nome AS 'Nome do Dinossauro',
+    Dinossauro.toneladas AS 'Toneladas',
+    Dinossauro.ano_descoberta AS 'Ano da Descoberta',
+    Dinossauro.pais_descobrimento AS 'pais do Descobrimento',
+    Grupo.nome AS 'Nome do Grupo',
+    Descobridor.nome AS 'Nome do Descobridor',
+    Era.nome AS 'Era'
+FROM Dinossauro
+INNER JOIN Grupo ON Dinossauro.fk_grupo = Grupo.id_grupo
+INNER JOIN Descobridor ON Dinossauro.fk_descobridor = Descobridor.id_descobridor
+INNER JOIN Era ON Dinossauro.fk_era = Era.id_era
+WHERE Grupo.nome = 'Anquilossauros'
+ORDER BY Dinossauro.ano_descoberta ASC;
+
+-- exercício 10
+SELECT
+    Dinossauro.id_dinossauro AS 'id do Dinossauro',
+    Dinossauro.nome AS 'Nome do Dinossauro',
+    Dinossauro.toneladas AS 'Toneladas',
+    Dinossauro.ano_descoberta AS 'Ano da Descoberta',
+    Dinossauro.pais_descobrimento AS 'pais do Descobrimento',
+    Grupo.nome AS 'Nome do Grupo',
+    Descobridor.nome AS 'Nome do Descobridor',
+    Era.nome AS 'Era'
+FROM Dinossauro, Grupo, Descobridor, Era
+WHERE Dinossauro.fk_grupo = Grupo.id_grupo
+AND Dinossauro.fk_descobridor = Descobridor.id_descobridor
+AND Dinossauro.fk_era = Era.id_era
+AND (Grupo.nome = 'Ceratopsídeos' OR Grupo.nome = 'Anquilossauros')
+AND Dinossauro.ano_descoberta BETWEEN 1900 AND 1999
+ORDER BY Dinossauro.ano_descoberta;
+
+SELECT
+    Dinossauro.id_dinossauro AS 'id do Dinossauro',
+    Dinossauro.nome AS 'Nome do Dinossauro',
+    Dinossauro.toneladas AS 'Toneladas',
+    Dinossauro.ano_descoberta AS 'Ano da Descoberta',
+    Dinossauro.pais_descobrimento AS 'pais do Descobrimento',
+    Grupo.nome AS 'Nome do Grupo',
+    Descobridor.nome AS 'Nome do Descobridor',
+    Era.nome AS 'Era'
+FROM Dinossauro
+INNER JOIN Grupo ON Dinossauro.fk_grupo = Grupo.id_grupo
+INNER JOIN Descobridor ON Dinossauro.fk_descobridor = Descobridor.id_descobridor
+INNER JOIN Era ON Dinossauro.fk_era = Era.id_era
+WHERE(Grupo.nome = 'Ceratopsídeos' OR Grupo.nome = 'Anquilossauros') 
+AND Dinossauro.ano_descoberta BETWEEN 1900 AND 1999
+ORDER BY Dinossauro.ano_descoberta ASC;
